@@ -1,0 +1,29 @@
+<div class="container">
+    {{#if orderMsg}}
+<center>
+    <div class="bar success" >
+        {{orderMsg}}
+    </div>
+</center>
+{{/if}}
+</div>
+{{#each products}}
+<div class="grid">
+    <div class="gallery">
+        {{#each this}}
+        <div class="content">
+            <img src="/images/{{this.imgPath}}" alt="">
+            <h3>{{this.productName}}</h3>
+            <p>{{this.productDetails}}</p>
+            <h6>{{this.productPrice}} SDG</h6>
+            {{#if ../../checkuser}}
+            <a href="/AddToCart/{{this._id}}/{{this.productName}}/{{this.productPrice}}"><button type="submit"
+                    class="buy-1">Add To Cart</button></a>
+            {{else}}
+            <a href="users/signin"><button type="submit" class="buy-1">Signin</button></a>
+            {{/if}}
+        </div>
+        {{/each}}
+    </div>
+</div>
+{{/each}}

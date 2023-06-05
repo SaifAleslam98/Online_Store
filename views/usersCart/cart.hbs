@@ -1,0 +1,55 @@
+{{#if userCart}}
+<div class="container">
+    <h4>User Cart</h4>
+    <table class="table">
+        <tr class="thead-dark">
+            <th scope="col">#</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Prodcut Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Delete</th>
+        </tr>
+        {{#each userCart.selectedProduct as | val index|}}
+        <tr>
+            <td><b>{{add @index}}</b></td>
+            <td>{{val.name}}</td>
+            <td>
+                {{#if (checkQuantity @val.quantity) }}
+                <a href="#" class="disabled-link "><i class="fa-solid fa-square-minus"></i></a>
+                {{else}}
+                <a href="/users/decreaseProduct/{{index}}"><i class="fa-solid fa-square-minus"></i></a>
+                {{/if}}
+
+                {{val.quantity}}
+                <a href="/users/increaseProduct/{{index}}"><i class="fa-solid fa-square-plus"></i></a>
+            </td>
+            <td>{{val.price}} - SDG</td>
+            <td><a href="/users/deleteProduct/{{index}}" class="dangers" data-tooltip="delete"><i class="fa-solid fa-trash"></i></a></td>
+        </tr>
+        {{/each}}
+        <tr class="thead-dark">
+            <th colspan="3" class="text-left"><b>Total Price</b></th>
+            <th class="">{{userCart.totalPrice}} - SDG</th>
+            <td><a href="/users/deleteAll" class="dangers btn-trash"><i class="fa-solid fa-trash"></i>delete all</a>
+            </td>
+        </tr>
+
+    </table>
+    <div class="grid">
+        <a href="/users/checkout" class="btn-checkout"><button id="cash"> Checkout</button></a>
+        <a href="/users/onlineCheckout" class="btn-checkout"><button class="contrast"> Credit Card</button></a>
+    </div>
+</div>
+
+{{else}}
+{{#if hasCart}}
+<div class="container text-center">
+    <h4 style="margin-top: 60px;"><i class="fa-solid fa-cart-shopping"></i> Cart Date Expired!</h4>
+</div>
+{{else}}
+<div class="container text-center">
+    <h4 style="margin-top: 60px;"><i class="fa-solid fa-cart-shopping"></i> Empty Cart!</h4>
+</div>
+{{/if}}
+
+{{/if}}

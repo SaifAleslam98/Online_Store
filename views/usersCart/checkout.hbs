@@ -1,0 +1,41 @@
+<div class="container">
+    {{#if messages}}
+
+    {{#each messages}}
+    <div class="bar error">
+        {{this}}
+    </div>
+    {{/each}}
+
+    {{/if}}
+    <form action="" method="post">
+        <div class="grid">
+            <h4>{{UserName}}!</h4>
+            <h5>Your Total Price is : {{TotalPrice}} SDG</h5>
+        </div>
+
+        <div class="grid">
+            <label for="firstname">
+                User name
+                <input type="text" id="" name="username" placeholder="enter your name" >
+            </label>
+            <label for="Address">
+                Address
+                <input type="text" id="" name="address" placeholder="enter your address">
+            </label>
+            <label for="Phone">
+                Phone
+                <input type="text" id="" name="phone" placeholder="enter your phone" >
+            </label>
+        </div>
+
+
+
+
+
+        <input type="hidden" name="_csrf" value="{{token}}">
+        <!-- Button -->
+        <button type="submit" class="contrast">Submit Order</button>
+
+    </form>
+</div>

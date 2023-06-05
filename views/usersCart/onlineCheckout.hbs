@@ -1,0 +1,56 @@
+<div class="container">
+    <form action="" method="post">
+
+
+        <div class="grid">
+            <h4>{{UserName}}!</h4>
+            <h5>Your Total Price is : {{TotalPrice}} SDG</h5>
+        </div>
+        <div class="grid">
+            <label for="firstname">
+                User name
+                <input type="text" id="" name="username" placeholder="enter your name">
+            </label>
+            <label for="Address">
+                Address
+                <input type="text" id="" name="address" placeholder="enter your address">
+            </label>
+        </div>
+
+
+
+        <div class="grid">
+            <label for="card name">
+                Credit Card Name
+                <input type="text" id="" name="cardname" placeholder="enter your credit card name">
+            </label>
+
+            <label for="card number">
+                Credit Card Number
+                <input type="number" id="" name="cardnumber" placeholder="enter your credit card number">
+            </label>
+        </div>
+        <div class="grid">
+            <label for="cardexpiremonth">
+                Expireation Month
+                <input type="number" id="" name="expiremonth" placeholder="enter expire month">
+            </label>
+
+            <label for="cardexpireyear">
+                Expireation Year
+                <input type="number" name="expireday" id="" placeholder="enter expire year">
+            </label>
+            <label for="cvc">
+                CVC
+                <input type="number" name="cvc" id="" placeholder="enter cvc">
+            </label>
+        </div>
+        <input type="hidden" name="_csrf" value="{{token}}">
+        <!-- Button -->
+        <button type="submit" class="contrast">Submit Payment</button>
+
+    </form>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script type="text/javascript" src="/javascripts/checkout.js"></script>

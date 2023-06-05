@@ -1,0 +1,49 @@
+<!-- Nav -->
+<nav class="container-fluid contrast">
+  <ul>
+    <li>
+      <a href="/" class="contrast"><strong><i class="fa-solid fa-shop"></i> Dokank</strong></a>
+    </li>
+  </ul>
+  <ul role="listbox">
+    {{#if checkuser}}
+    <li><a href="/users/cart" class="contrast">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class='badge' id='lblCartCount'> {{totalCart}} </span>
+      </a></li>
+    {{else}}
+    <li><a href="/users/cart" class="contrast">
+        <i class="fa-solid fa-cart-shopping"></i>
+
+      </a></li>
+
+    {{/if}}
+    <li><a href="/" class="contrast">Home</a></li>
+    <li><a href="/about" class="contrast">About</a></li>
+    <li><a href="/" class="contrast">Services</a></li>
+    <li><a href="/" class="contrast">Contact</a></li>
+
+    <li>
+      <details role="list" dir="rtl">
+        <summary aria-haspopup="listbox" role="link" class="secondary">Account</summary>
+        <ul role="listbox">
+          {{#if checkuser}}
+          {{#if checkprofile}}
+          <li><a href="/users/logout" class="contrast">Logout <i class="fa-solid fa-arrow-left"></i></a></li>
+          {{else}}
+          <li><a href="/users/profile" class="contrast">Profile <i class="fa-solid fa-user"></i></a></li>
+          <li><a href="/users/logout" class="contrast">Logout <i class="fa-solid fa-arrow-left"></i></a></li>
+          {{/if}}
+
+          {{else}}
+          <li><a href="/users/signin" class="contrast">Signin <i class="fa-solid fa-sign-in-alt"></i></a></li>
+          <li><a href="/users/signup" class="contrast">Signup <i class="fa-solid fa-user-plus"></i></a></li>
+          {{/if}}
+
+
+        </ul>
+      </details>
+    </li>
+  </ul>
+</nav>
+<!-- ./ Nav -->

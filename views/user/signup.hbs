@@ -1,0 +1,46 @@
+<div class="container">
+   <h2>Signup</h2>
+
+   {{#each messages}}
+   <div class="bar error">
+      
+         {{this}}
+      
+   </div>
+
+   {{/each}}
+   <form action="signup" method="post">
+
+
+      <!-- Markup example 1: input is inside label -->
+      <div class="grid">
+         <label for="firstname">
+            User name
+            <input type="text" id="firstname" name="firstname" placeholder="User name">
+         </label>
+         <label for="phone">
+            Phone
+            <input type="text" id="phone" name="userphone" placeholder="Phone number">
+         </label>
+      </div>
+      <!-- Markup example 2: input is after label -->
+      <label for="email">Email address</label>
+      <input type="email" id="email" name="useremail" placeholder="Email address">
+
+      <div class="grid">
+         <label for="Password">
+            Password
+            <input type="password" id="passwd" name="userpass" placeholder="Password">
+         </label>
+         <label for="Password">
+            Re-Password
+            <input type="password" id="repasswd" name="userrepass" placeholder="Re-Password">
+         </label>
+      </div>
+      <small>We'll never share your details with anyone else.</small>
+      <input type="hidden" name="_csrf" value="{{token}}">
+      <!-- Button -->
+      <button type="submit" class="contrast">Signup</button>
+
+   </form>
+</div>
