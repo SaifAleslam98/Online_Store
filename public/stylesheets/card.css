@@ -272,7 +272,7 @@
   }
   #lblCartCount {
       font-size: 12px;
-      background: #206ba3;
+      background: #f44336;
       color: #fff;
       padding: 1px 5px;
       vertical-align: top;
@@ -286,8 +286,4 @@
 .text-center{
   text-align: center;
   margin: auto;
-}
-nav ul li a:hover{
-  color: #0CE;
-  transition: all 0.5s ease-in-out;
 }
