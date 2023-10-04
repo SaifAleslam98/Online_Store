@@ -1,29 +1,51 @@
-<div class="container">
+<div class="container-lg  " style="padding-top: 10px;">
     {{#if orderMsg}}
-<center>
-    <div class="bar success" >
-        {{orderMsg}}
-    </div>
-</center>
-{{/if}}
-</div>
-{{#each products}}
-<div class="grid">
+    <center>
+        <div class="bar success">
+            {{orderMsg}}
+        </div>
+    </center>
+    {{/if}}
+    
+    <h5 class="section" ><span>C</span>ate<span>g</span>orie<span>s</span></h5>
+    
+    {{#each departments}}
     <div class="gallery">
         {{#each this}}
         <div class="content">
-            <img src="/images/{{this.imgPath}}" alt="">
-            <h3>{{this.productName}}</h3>
-            <p>{{this.productDetails}}</p>
-            <h6>{{this.productPrice}} SDG</h6>
-            {{#if ../../checkuser}}
-            <a href="/AddToCart/{{this._id}}/{{this.productName}}/{{this.productPrice}}"><button type="submit"
-                    class="buy-1">Add To Cart</button></a>
-            {{else}}
-            <a href="users/signin"><button type="submit" class="buy-1">Signin</button></a>
-            {{/if}}
+            
+                <img src="/images/logo/{{this.imgPath}}" class="card-img-top  ">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.departmentName}}</h5>
+                    <a href="/category/{{this.departmentName}}/{{this._id}}" class="btn btn-info btn-sm">Browse</a>
+                </div>
+            
         </div>
         {{/each}}
     </div>
-</div>
-{{/each}}
+    {{/each}}
+
+    <h5 class="section" ><span>R</span>ecently <span>O</span>rders</h5>
+    {{#each products}}
+    <div class="gallery">
+        {{#each this}}
+        <div class="content">
+            
+                <img src="{{this.imgPath}}" >
+                <div class="card-body">
+                    <h5 class="card-title">{{this.productName}}</h5>
+                    <p class="card-text">{{this.productDetails}}</p>
+                    <h6>{{this.productPrice}} SDG</h6>
+                    {{#if ../../checkuser}}
+                    <a href="/AddToCart/{{this._id}}/{{this.productName}}/{{this.productPrice}}"
+                        class="btn btn-success btn-sm">Add To Cart</a>
+                    {{else}}
+                    <a href="users/signin" class="btn btn-info btn-sm">signin</a>
+                    {{/if}}
+
+                </div>
+            
+        </div>
+        {{/each}}
+    </div>
+    {{/each}}

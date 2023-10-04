@@ -19,6 +19,14 @@ const productSchema = mongoose.Schema({
         type:String,
         required:true,
     },
+    productBrand:{
+        type:String,
+        required:true,
+    },
+    productDepartment:{
+        type:String,
+        required:true,
+    }
 });
 
 module.exports = mongoose.model('Product' , productSchema);

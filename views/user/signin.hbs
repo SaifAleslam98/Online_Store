@@ -1,28 +1,41 @@
-<div class="container width-50" >
+<div class="container mt-5" >
     <form action="signin" method="post">
-        <h2>Signin</h2>
-        {{#each messages}}
-        <div class="bar error">
-
-            {{this}}
-
+        <h2 class="text-center">Signin</h2>
+        {{#if messages}}
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-6">
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        {{#each messages}}
+                        <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
         </div>
-
-        {{/each}}
-        <h6>Please Login To Get All Features</h6>
-        <div class="">
-            <label for="firstname">
-                User name
-                <input type="text" id="firstname" name="username" placeholder="First name"  />
-            </label>
-            <label for="lastname">
-                Password
-                <input type="password" id="lastname" name="userpassword" placeholder="Password" >
-            </label>
-            <input type="hidden" name="_csrf" value="{{token}}">
-            <button class="contrast ">Signin</button>
+        {{/if}}
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-5">
+                <label for="formGroupExampleInput" class="form-label">Email</label>
+                <input type="email" class="form-control form-control-sm" name="username" id="colFormLabelSm"
+                    placeholder="enter your email">
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-5">
+                <label for="formGroupExampleInput" class="form-label">Password</label>
+                <input type="password" class="form-control form-control-sm" name="userpassword" id="colFormLabelSm"
+                    placeholder="enter your password">
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-5 text-center">
+                <input type="hidden" name="_csrf" value="{{token}}">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-info btn-sm" type="submit"><i class="fa fa-sign-in" aria-hidden="true"></i> Signin</button>
+                </div>
+            </div>
         </div>
 
     </form>
-
 </div>

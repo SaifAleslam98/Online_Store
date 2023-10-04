@@ -1,0 +1,178 @@
+<div class="container " style="padding-top:15px;">
+    <h5 class="section">Dashboard</h5>
+    {{#if adminErrorMessage}}
+    {{#each adminErrorMessage}}
+    <li>{{this}}</li>
+    {{/each}}
+    {{/if}}
+    <div class="gallery">
+        <div class="content justify-content-center">
+            <div class="header">Departments</div>
+            <div class="card-text">There is Departments Details</div>
+            <div class="value">{{DepartmentsCount}}</div>
+            <a href="admin/allProducts" class="btn btn-success btn-sm">View All</a>
+            <a href="admin/allProducts" class="btn btn-danger btn-sm">update</a>
+        </div>
+        <div class="content justify-content-center">
+            <div class="header">Brands</div>
+            <div class="card-text">There is Brands Details</div>
+            <div class="value">{{brandCount}}</div>
+            <a href="admin/allProducts" class="btn btn-success btn-sm">View All</a>
+            <a href="admin/allProducts" class="btn btn-danger btn-sm">update</a>
+        </div>
+        <div class="content justify-content-center">
+            <div class="header">Products</div>
+            <div class="card-text">There is Products Details</div>
+            <div class="value">5</div>
+            <a href="admin/allProducts" class="btn btn-success btn-sm">View All</a>
+            <a href="admin/allProducts" class="btn btn-danger btn-sm">update</a>
+        </div>
+        <div class="content justify-content-center">
+            <div class="header">Orders</div>
+            <div class="card-text">There is Orders Details</div>
+            <div class="value">{{DepartmentsCount}}</div>
+            <a href="admin/allProducts" class="btn btn-success btn-sm">View All</a></li>
+        </div>
+    </div>
+    <div class="gallery">
+        <!-- Departments Coloumn -->
+        <div class="content2">
+            <form action="admin/addDepartment?_csrf={{token}}" method="post" enctype="multipart/form-data">
+                <div class="card-body">
+                    <h5 class="card-title">Departments</h5>
+                    <p class="card-text">Fill form to add department</p>
+                    <img src="/images/AirpodsPro2.png" class="d-none" id="deptlogoImg">
+                    <input type="text" class="form-control form-control-sm" name="departmentName" id="colFormLabelSm"
+                        placeholder="enter department name" required>
+                    <input type="file" class="form-control form-control-sm" id="deptFile"
+                        style="font-size: 14px; margin-top:5px;" name="deptPic" required>
+                    <input type="hidden" name="_csrf" value="{{token}}">
+                    <button type="submit" class="btn btn-info btn-sm" style="margin-top:8px;">Add
+                        Department</button>
+                </div>
+            </form>
+        </div>
+        <!-- Brand Coloumn -->
+        <div class="content2">
+            <form action="admin/addBrand?_csrf={{token}}" method="post" enctype="multipart/form-data">
+                <h5 class="card-title">Brands</h5>
+                <p class="card-text">Fill form to add brand</p>
+                <input type="text" class="form-control form-control-sm" name="brandName" id="colFormLabelSm"
+                    placeholder="enter brand name" required>
+                <select class="form-select form-select-sm" aria-label="Default select example" style="margin-top:5px;"
+                    name="department">
+                    {{#each Depts}}
+                    <option value="{{this._id}}">{{this.departmentName}}</option>
+                    {{/each}}
+
+                </select>
+                <input type="file" class="form-control form-control-sm" id="brandFile"
+                    style="font-size: 14px; margin-top:5px;" name="brandPic" required>
+                <input type="hidden" name="_csrf" value="{{token}}">
+                <button type="submit" class="btn btn-info btn-sm" style="margin-top:5px;">Add
+                    New Brand</button>
+            </form>
+        </div>
+        <div class="content2 ">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">All Departments <span class="badge text-bg-info">{{DepartmentsCount}}</span>
+                </li>
+                <li class="list-group-item">All Brands <span class="badge text-bg-info">{{brandCount}}</span>
+                </li>
+                <li class="list-group-item">All Products <span class="badge text-bg-info">{{brandCount}}</span></li>
+                <li class="list-group-item"><a href="admin/allProducts" class="btn btn-info btn-sm">View All Products</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--Product Coloumn -->
+    <div class="gallery">
+        <div class="content2" style="width:75%; height:auto;">
+            <form action="admin/addproduct?_csrf={{token}}" method="post" enctype="multipart/form-data">
+
+                <h5 class="card-title">Products</h5>
+                <p class="card-text">Fill form to add New Product</p>
+                <div class="row mb-3">
+                    
+
+                    <div class="col-sm-4">
+                        <label for="formGroupExampleInput" class="form-label">Product Department</label>
+                        <select class="form-select form-select-sm" aria-label="Default select example"
+                            name="department">
+                            {{#each Depts}}
+                            <option value="{{this._id}}">{{this.departmentName}}</option>
+                            {{/each}}
+
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="formGroupExampleInput" class="form-label">Product Brand</label>
+                        <select class="form-select form-select-sm" aria-label="Default select example" name="brand">
+                            {{#each Brands}}
+                            <option value="{{this._id}}">{{this.brandName}}</option>
+                            {{/each}}
+
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="formGroupExampleInput" class="form-label">Product Name</label>
+                        <input type="text" class="form-control form-control-sm" name="productName" id="colFormLabelSm"
+                            placeholder="type product name">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4">
+                        <label for="formGroupExampleInput" class="form-label">Product Img</label>
+                        <input type="file" class="form-control form-control-sm" id="imgFile" style="font-size: 14px;"
+                            name="productImgFile" required>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="formGroupExampleInput" class="form-label">Product Details</label>
+                        <input type="text" class="form-control form-control-sm" name="productDetails"
+                            id="colFormLabelSm" placeholder="type product details">
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="formGroupExampleInput" class="form-label">Product Price</label>
+                        <input type="text" class="form-control form-control-sm" name="productPrice" id="colFormLabelSm"
+                            placeholder="type product price">
+                    </div>
+
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4">
+                        <img src="" class=" d-none" id="productImg">
+                    </div>
+                </div>
+                <div class="row mb-3">
+
+                    <div class="col-sm-2 ">
+
+                        <button class="btn btn-info btn-sm" type="submit"><i class="fa fa-save" aria-hidden="true"></i>
+                            save product</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('deptFile').onchange = function () {
+        const reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function () {
+            document.getElementById('deptlogoImg').src = this.result;
+            $('#deptlogoImg').removeClass('d-none');
+            $('#deptlogoImg').addClass('dept-logo');
+        }
+    }
+    document.getElementById('imgFile').onchange = function () {
+        const reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function () {
+            document.getElementById('productImg').src = this.result;
+            $('#productImg').addClass('profile-img');
+            $('#productImg').removeClass('d-none')
+        }
+    }
+
+</script>

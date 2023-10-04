@@ -1,0 +1,144 @@
+<div class="container justify-content-center" style="padding-top: 3em;">
+
+
+    <h2>Profile Update</h2>
+    <div class="row mb-3 justify-content-center">
+        <div class="col-sm-10">
+            {{#if userprofile.[4]}}
+            <img src="{{userprofile.[4]}}" class="profile-img" id=""> <br>
+
+            {{else}}
+            <img src="/images/profile/hd-man.png" class="profile-img" id=""> <br>
+            {{/if}}
+            {{picUpdateError}}
+        </div>
+
+    </div>
+    <div class="row mb-3 justify-content-center">
+        <div class="col-sm-10">
+            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop">
+                Change profile Picture
+            </button>
+            <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Update Profile Picture</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="changeProfilePic?_csrf={{token}}" method="post" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="row mb-3 justify-content-center">
+                                    <div class="col-sm-10">
+                                        {{#if userprofile.[4]}}
+                                        <img src="" class="profile-img" id="profileImg"> <br>
+
+                                        {{else}}
+                                        <img src="/images/profile/hd-man.png" class="profile-img" id="profileImg"> <br>
+                                        {{/if}}
+                                        <br>
+                                        <input type="file" class="form-control" id="imgFile" style="font-size: 14px;"
+                                            name="profilePic">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="/users/update" class="btn btn-secondary btn-sm">Close</a>
+                                <button type="submit" class="btn btn-success btn-sm" id="saveImageButton">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form action="updateProfile" method="post" id="updateUser" class="needs-validation">
+        {{#if messagesProfile}}
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-10">
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        {{#each messagesProfile}}
+                        <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+
+
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-5 ">
+                <label for="formGroupExampleInput" class="form-label">user name</label>
+                <input type="text" class="form-control form-control-sm" name="username" id="colFormLabelSm"
+                    placeholder="enter your name">
+
+            </div>
+            <div class="col-sm-5">
+                <label for="formGroupExampleInput" class="form-label">user phone</label>
+                <input type="text" class="form-control form-control-sm" name="userphone" id="colFormLabelSm"
+                    placeholder="enter your phone">
+
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-5">
+                <label for="formGroupExampleInput" class="form-label">user email</label>
+                <input type="email" class="form-control form-control-sm" name="useremail" id="colFormLabelSm"
+                    placeholder="enter your email">
+
+            </div>
+            <div class="col-sm-5">
+                <label for="formGroupExampleInput" class="form-label">user address</label>
+                <input type="text" class="form-control form-control-sm" name="useraddress" id="colFormLabelSm"
+                    placeholder="enter your address">
+
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-5">
+                <label for="formGroupExampleInput" class="form-label">password</label>
+                <input type="password" class="form-control form-control-sm" name="userpass" id="colFormLabelSm"
+                    placeholder="enter your password">
+
+            </div>
+            <div class="col-sm-5">
+                <label for="formGroupExampleInput" class="form-label">confirm password</label>
+                <input type="password" class="form-control form-control-sm" name="userrepass" id="colFormLabelSm"
+                    placeholder="enter your password">
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-5 ">
+                <input type="hidden" name="_csrf" value="{{token}}">
+
+                <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-user-plus" aria-hidden="true"></i>
+                    confirm</button>
+                <a href="/users/profile" class="btn btn-danger btn-sm">Cancel</a>
+            </div>
+        </div>
+    </form>
+
+</div>
+<script>
+    const button = document.querySelector('#saveImageButton');
+    button.disabled = true;
+    document.getElementById('imgFile').onchange = function () {
+        const reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function () {
+            document.getElementById('profileImg').src = this.result;
+            button.disabled = false;
+        }
+    }
+
+
+
+
+
+
+</script>

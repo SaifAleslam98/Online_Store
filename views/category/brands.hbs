@@ -1,0 +1,27 @@
+<div class="container" style="padding-top: 15px;">
+    <h5 class="section">{{title}} Category</h5>
+
+    {{#each brand}}
+       <div class="gallery">
+        {{#each this}}
+           <div class="content">
+            
+                <img src="{{this.imgPath}}" >
+                
+                    <h3 class="card-title">{{this.productName}}</h3>
+                    <p class="card-text">{{this.productDetails}}</p>
+                    <h6>{{this.productPrice}} SDG</h6>
+                    {{#if ../../checkuser}}
+                    <a href="/AddToCart/{{this._id}}/{{this.productName}}/{{this.productPrice}}"
+                        class="btn btn-success btn-sm">Add To Cart</a>
+                    {{else}}
+                    <a href="../../../users/signin" class="btn btn-primary btn-sm">signin</a>
+                    {{/if}}
+
+                
+            
+           </div>
+        {{/each}}
+       </div>
+    {{/each}}
+</div>

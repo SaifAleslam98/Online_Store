@@ -1,0 +1,18 @@
+upload.single('deptPic')(req, res, (err=>{
+    if(err){
+      req.flash('adminMsg', err.message)
+      res.redirect('/admin')
+    }else{
+      newDepartment.save((error, doc) => {
+        if (error) {
+          req.flash('adminMsg', error.message)
+          res.redirect('/admin')
+        }
+        else {  
+              console.log(doc)
+              req.flash('adminMsg', 'Adding Department Done Succefully')
+              res.redirect('/admin')
+        }
+      })
+    }
+  }))

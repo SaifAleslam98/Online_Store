@@ -1,164 +1,134 @@
-<div class="container">
-
-
-    <div class="tab_container">
-
-
-        <input id="tab2" type="radio" name="tabs" class="input">
-        <label for="tab2"><i class="fa fa-home"></i><span>Profile</span></label>
-
-        <input id="tab3" type="radio" name="tabs" class="input">
-        <label for="tab3"><i class="fa fa-file-text" aria-hidden="true"></i><span>Orders</span></label>
-
-        <input id="tab4" type="radio" name="tabs" class="input">
-        <label for="tab4"><i class="fa fa-folder-open-o"></i><span>Portfolio</span></label>
-
-        <section id="content2" class="tab-content section">
-            <div class="grid">
-                <div>
-                    <img src="/images/AirpodsPro2.png" id="profileImg">
-                    <input type="file" name="" id="imgFile" style="font-size: 14px;" class="d-none">
-                </div>
-                <div id="tableShow">
-                    <table>
-                        <tr>
-                            <td><b>user name</b></td>
-                            <td>saif aleslam</td>
-                        </tr>
-                        <tr>
-                            <td><b>Email</b></td>
-                            <td>saif aleslam</td>
-                        </tr>
-                        <tr>
-                            <td><b>Contact</b></td>
-                            <td>saif aleslam</td>
-                        </tr>
-                        <tr>
-                            <td><b>Address</b></td>
-                            <td>saif aleslam</td>
-                        </tr>
-                        <tr>
-                            <td><b>Password</b></td>
-                            <td>*********</td>
-                        </tr>
-                        <tr>
-                            <td><button type="button" class="" data-tooltip="Update" id="updateProfile"><i
-                                        class="fa fa-repeat" aria-hidden="true"></i> update profile</button></td>
-                        </tr>
-                    </table>
-                </div>
-
+<div class="container" style="padding-top: 3em;">
+    <div class="row mb-3 justify-content-start ">
+        <!-- Coloumn One -->
+        <div class="col-sm-4 text-center">
+            {{#if userprofile.userImage}}
+                <img src="{{userprofile.userImage}}" class="profile-img" id="profileImg"> <br>
                 
-                <form action="/users/updateProfile" method="post" class="d-none" id="newProfile">
-                {{#each messagesProfile}}
-                <div class="bar error">
-
-                    {{this}}
-
+            {{else}}
+               <img src="/images/profile/hd-man.png" class="profile-img" id="profileImg"> <br>
+            {{/if}}
+            <input type="file" name="" id="imgFile" style="font-size: 14px;" class="d-none">
+            <h4>{{{userprofile.userName}}}</h4>
+            <div class="row mb-2 justify-content-center">
+                <div class="col-sm-10 text-center">
+                    <a href="/users/update" class="btn btn-success btn-sm" id="btn_update"><i class="fa fa-pencil"
+                            aria-hidden="true"></i> update</a>
                 </div>
-
-                {{/each}}
-                    <h6>Please Fill This Fields To update profile</h6>
-                    User Name
-                    <input type="text" id="" name="userName" placeholder="enter your name" class="font-17" />
-                    Email
-                    <input type="email" id="" name="userEmail" placeholder="enter email" />
-                    Contact
-                    <input type="number" id="" name="userPhone" placeholder="enter phone number" />
-                    Address
-                    <input type="text" id="" name="userAddress" placeholder="enter your address" />
-                    Password
-                    <input type="password" id="" name="userPassword" placeholder="enter password" />
-                    Confirm-password
-                    <input type="password" id="" name="repassword" placeholder="confirm password" />
-                    <input type="hidden" name="_csrf" value="{{token}}">
-                    <button type="submit" id="cash"> save</button>
-                    <a href="/users/profile" class="cancelButton">Cancel</a>
-                </form>
             </div>
-        </section>
-
-        <section id="content3" class="tab-content section">
-
-            <div class="order">
-                {{#if orderDeleted}}
-                <div class="bar success">
-                    {{orderDeleted}}
-                </div>
-                {{/if}}
-                {{#if userOrder}}
-                {{#each userOrder as | val index|}}
-                <br>
-                <table class="table">
-                    <tr>
-                        <td colspan="4">Order {{add @index}}</td>
-                    </tr>
-                    <tr>
-
-                        <td colspan="2">{{this.address}}</td>
-                        <td colspan="2">{{this.phone}}</td>
-
-                    </tr>
-                    <tr class="thead-dark">
-                        <th scope="col">#</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Prodcut Quantity</th>
-                        <th scope="col">Price</th>
-                    </tr>
-                    {{#each this.cart.selectedProduct as | val indexProduct|}}
-                    <tr>
-                        <td>{{add @indexProduct}}</td>
-                        <td>{{this.name}}</td>
-                        <td>{{this.quantity}}</td>
-                        <td>{{this.price}} - SDG</td>
-                    </tr>
-                    {{/each}}
-                    <tr>
-                        <th colspan="3" class="text-left"><b>Total Price</b></th>
-                        <th class="">{{this.orderPrice}} - SDG</th>
-                    </tr>
-                    <tr>
-                        <td colspan="4"><a href="/users/deleteorder/{{this._id}}" class="dangers btn-trash"><i
-                                    class="fa-solid fa-trash"></i>delete order</a>
-                        </td>
-                    </tr>
-                </table>
-                <hr width="100%" color="red" size="2px">
-                {{/each}}
-                {{else}}
-                <div class="container text-center">
-                    <h4 style="margin-top: 60px;"> No Orders!</h4>
-                </div>
-                {{/if}}
-
-            </div>
-        </section>
-
-        <section id="content4" class="tab-content section">
-            <h3>Headline 4</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua.</p>
-
-
-        </section>
-
-
+        </div>
+        <!-- Coloumn Two -->
+        <div class="col-sm-6 justify-content-end">
+            <h4>Profile Data</h4>
+            <ol class="list-group list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Name</div>
+                        {{userprofile.userName}}
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Email</div>
+                        {{userprofile.userMail}}
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Address</div>
+                        {{userprofile.userAddress}}
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Phone</div>
+                        {{userprofile.userPhone}}
+                    </div>
+                </li>
+                
+            </ol>
+        </div>
     </div>
+    {{#if userOrder}}
+        <div class="row mb-3 justify-content-start ">
+        <div class="col-sm-12">
+            <div class="card">
+                <h5 class="card-header">All Orders</h5>
+                <div class="card-body">
+                    {{#each userOrder as | val index|}}
+                    <table class="table table-bordered table-sm text-center">
+
+                        <thead>
+                            <tr class="table-dark">
+                                <th scope="col" colspan="4">Order {{add @index}}</th>
+                            </tr>
+                            <tr>
+                                <th scope="col" colspan="1">{{this.name}}</th>
+                                <th scope="col" colspan="2"> {{this.address}}</th>
+                                <th scope="col" colspan="1"> {{this.orderPrice}} SDG</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Index</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each this.cart.selectedProduct as | val indexProduct|}}
+                            <tr>
+                                <td>{{add @indexProduct}}</td>
+                                <td>{{this.name}}</td>
+                                <td>{{this.quantity}}</td>
+                                <td>{{this.price}} - SDG</td>
+                            </tr>
+                            {{/each}}
+                            <tr>
+                                <td colspan="4">
+                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop">
+                                        <i class="fa-solid fa-trash"></i> Delete Order
+                                    </button>
+
+                                </td>
+                            </tr>
+                            <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static"
+                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Attention</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure to delete this order?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary btn-sm"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <a href="/users/deleteorder/{{this._id}}" class="btn btn-danger btn-sm"><i
+                                                    class="fa-solid fa-trash"></i>delete order</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                    {{/each}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{else}}
+       <div class="row mb-3 justify-content-center ">
+        <div class="col-sm-12 text-center" >
+            <h4>No Orders!</h4>
+        </div>
+       </div>
+    {{/if}}
 
 
 </div>
-
-<script>
-    document.getElementById('imgFile').onchange = function () {
-        const reader = new FileReader();
-        reader.readAsDataURL(this.files[0]);
-        reader.onload = function () {
-            document.getElementById('profileImg').src = this.result;
-        }
-    }
-    document.getElementById('updateProfile').onclick = function () {
-        $('#tableShow').addClass('d-none')
-        $('#imgFile').removeClass('d-none')
-        $('#newProfile').removeClass('d-none')
-    }
-</script>

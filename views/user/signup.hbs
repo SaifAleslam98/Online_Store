@@ -1,46 +1,76 @@
-<div class="container">
-   <h2>Signup</h2>
+<div class="container mt-5" >
+    <form action="signup" method="post">
+        <h2 class="text-center">Signup</h2>
+        {{#if messages}}
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-6">
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        {{#each messages}}
+                        <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-5">
+                <label for="formGroupExampleInput" class="form-label">user name</label>
+                <input type="text" class="form-control form-control-sm" name="firstname" id="colFormLabelSm"
+                    placeholder="enter your name">
+            </div>
+            <div class="col-sm-5">
+                <label for="formGroupExampleInput" class="form-label">user phone</label>
+                <input type="text" class="form-control form-control-sm" name="userphone" id="colFormLabelSm"
+                    placeholder="enter your phone">
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-4">
+                <label for="formGroupExampleInput" class="form-label">user email</label>
+                <input type="email" class="form-control form-control-sm" name="useremail" id="colFormLabelSm"
+                    placeholder="enter your email">
+            </div>
+            <div class="col-sm-3">
+                <label for="formGroupExampleInput" class="form-label">user address</label>
+                <input type="text" class="form-control form-control-sm" name="useraddress" id="colFormLabelSm"
+                    placeholder="enter your address">
+            </div>
+            <div class="col-sm-3 align-items-center">
+                <label for="formGroupExampleInput" class="form-label">Gender</label>
+                <select class="form-select form-select-sm" aria-label="Default select example" name="usergender" required>  
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-5">
+                <label for="formGroupExampleInput" class="form-label">password</label>
+                <input type="password" class="form-control form-control-sm" name="userpass" id="colFormLabelSm"
+                    placeholder="enter your password">
+            </div>
+            <div class="col-sm-5">
+                <label for="formGroupExampleInput" class="form-label">confirm password</label>
+                <input type="password" class="form-control form-control-sm" name="userrepass" id="colFormLabelSm"
+                    placeholder="enter your password">
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-10 text-center">
+                <input type="hidden" name="_csrf" value="{{token}}">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-user-plus"
+                            aria-hidden="true"></i> Signup</button>
+                </div>
+            </div>
+        </div>
 
-   {{#each messages}}
-   <div class="bar error">
-      
-         {{this}}
-      
-   </div>
-
-   {{/each}}
-   <form action="signup" method="post">
-
-
-      <!-- Markup example 1: input is inside label -->
-      <div class="grid">
-         <label for="firstname">
-            User name
-            <input type="text" id="firstname" name="firstname" placeholder="User name">
-         </label>
-         <label for="phone">
-            Phone
-            <input type="text" id="phone" name="userphone" placeholder="Phone number">
-         </label>
-      </div>
-      <!-- Markup example 2: input is after label -->
-      <label for="email">Email address</label>
-      <input type="email" id="email" name="useremail" placeholder="Email address">
-
-      <div class="grid">
-         <label for="Password">
-            Password
-            <input type="password" id="passwd" name="userpass" placeholder="Password">
-         </label>
-         <label for="Password">
-            Re-Password
-            <input type="password" id="repasswd" name="userrepass" placeholder="Re-Password">
-         </label>
-      </div>
-      <small>We'll never share your details with anyone else.</small>
-      <input type="hidden" name="_csrf" value="{{token}}">
-      <!-- Button -->
-      <button type="submit" class="contrast">Signup</button>
-
-   </form>
+    </form>
 </div>
+<script>
+    if (document.getElementsByName('messages'){
+        alert('ddd')
+    })
+</script>

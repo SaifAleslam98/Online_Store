@@ -1,54 +1,15 @@
 var express = require('express');
 var router = express.Router();
 const control = require('../controller/user_control');
-const User = require('../model/user');
-const Product = require('../model/product');
 const Cart = require('../model/cart');
-
-
+const Services = require('../services/render');
+const Brand = require('../model/brands');
+const product = require('../model/product');
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  var orderMsg = req.flash('orderDone');
-  var totalCartProductsQuantity = null
-  if (req.isAuthenticated()) {
-    if(req.user.cart){
-      totalCartProductsQuantity = req.user.cart.totalQuantity;
-    }
-    else{
-      totalCartProductsQuantity = 0;
-    }
-  }
- 
-  /**Searching for all products */
-  Product.find({}, (error, doc) => {
-    if (error) {
-      console.log(error);
-    }
-    var productGrid = [];
-    var colGrid = doc.length;
-    for (var i = 0; i < doc.length; i += colGrid) {
-      productGrid.push(doc.slice(i, i + colGrid));
-    }
-    res.render('index', {
-      title: 'Dokank',
-      checkuser: req.isAuthenticated(),
-      products: productGrid,
-      totalCart: totalCartProductsQuantity,
-      orderMsg:orderMsg
-    });
-
-
-  }).lean();
-
-});
+router.get('/' ,control.isNotAdmin,Services.homePage);
 
 /* GET About page. */
-router.get("/about", (req, res, next) => {
-  res.render('about', { title: 'Dokank', checkuser: req.isAuthenticated() });
-});
-
-
-
+router.get("/about",control.isNotAdmin ,Services.aboutPage);
 
 router.get('/delete', (req, res, next) => {
   Cart.deleteMany((error, doc) => {
@@ -63,10 +24,12 @@ router.get('/delete', (req, res, next) => {
   })
 });
 
-router.get('/AddToCart/:id/:name/:price', control.isSignIn , (req, res, next) => {
+router.get('/AddToCart/:id/:name/:price', control.isSignIn, (req, res, next) => {
   req.session.hasCart = true;
   const cartId = req.user._id; // cartID is user id to give cart same user id
   const newProductPrice = parseInt(req.params.price, 10); // to parse new product price
+  
+
   // newProduct its array of selected product that came from body
   const newProduct = {
     _id: req.params.id,
@@ -87,7 +50,7 @@ router.get('/AddToCart/:id/:name/:price', control.isSignIn , (req, res, next) =>
         totalQuantity: 1,
         totalPrice: req.params.price,
         selectedProduct: [newProduct],
-        createAt : Date.now(),
+        createAt: Date.now(),
 
       });
       newCart.save((error, doc) => {
@@ -138,7 +101,70 @@ router.get('/AddToCart/:id/:name/:price', control.isSignIn , (req, res, next) =>
     };
   });
 
-  res.redirect('/');
+  res.redirect('back');
 });
+
+router.get('/category/:category/:id', (req, res, next) => {
+  var categoryError = req.flash('categoryError')
+  Brand.find({ department: req.params.id }, (err, brand) => {
+    if (err) {
+
+      throw new Error(err.message)
+    }
+    else {
+      var brandGrid = [];
+      var brandCol = 4;
+      for (var i = 0; i < brand.length; i += brandCol) {
+        brandGrid.push(brand.slice(i, i + brandCol))
+      }
+      var totalCartProductsQuantity = null
+      if (req.isAuthenticated()) {
+        if (req.user.cart) {
+          totalCartProductsQuantity = req.user.cart.totalQuantity;
+        }
+        else {
+          totalCartProductsQuantity = 0;
+        }
+      }
+      res.render('category/category', {
+        title: req.params.category,
+        brand: brandGrid,
+        totalCart: totalCartProductsQuantity
+      })
+    }
+  })
+});
+router.get('/category/:category/:brand/:id', (req, res, next) => {
+  product.find({ productBrand: req.params.id }, (err, products) => {
+    if (err) {
+      throw new Error(err.message)
+    }
+    else {
+      var productGrid = [];
+      var colGrid = 4
+      for (var i = 0; i < products.length; i += colGrid) {
+        productGrid.push(products.slice(i, i + colGrid))
+      }
+      var totalCartProductsQuantity = null
+      if (req.isAuthenticated()) {
+        if (req.user.cart) {
+            totalCartProductsQuantity = req.user.cart.totalQuantity;
+        }
+        else {
+            totalCartProductsQuantity = 0;
+        }
+    }
+      res.render('category/brands', {
+        title: req.params.brand,
+        brand: productGrid,
+        checkuser: req.isAuthenticated(),
+        totalCart: totalCartProductsQuantity
+      })
+    }
+  })
+
+
+})
+
 
 module.exports = router;

@@ -1,46 +1,86 @@
 {{#if userCart}}
-<div class="container">
-    <h4>User Cart</h4>
-    <table class="table">
-        <tr class="thead-dark">
-            <th scope="col">#</th>
-            <th scope="col">Product Name</th>
-            <th scope="col">Prodcut Quantity</th>
-            <th scope="col">Price</th>
-            <th scope="col">Delete</th>
-        </tr>
-        {{#each userCart.selectedProduct as | val index|}}
-        <tr>
-            <td><b>{{add @index}}</b></td>
-            <td>{{val.name}}</td>
-            <td>
-                {{#if (checkQuantity @val.quantity) }}
-                <a href="#" class="disabled-link "><i class="fa-solid fa-square-minus"></i></a>
-                {{else}}
-                <a href="/users/decreaseProduct/{{index}}"><i class="fa-solid fa-square-minus"></i></a>
-                {{/if}}
+<div class="container" style="padding-top: 5em;">
+    <div class="table-responsive">
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">#</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Prodcut Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each userCart}}
+                {{#each this.selectedProduct as | val index|}}
+                <tr>
+                    <td><b>{{add @index}}</b></td>
+                    <td>{{val.name}}</td>
+                    <td>
+                        {{#if (checkQuantity @val.quantity) }}
+                        <a href="" class="disabled "><i class="fa-solid fa-square-minus"></i></a>
+                        {{else}}
+                        <a href="/shoppingCart/decreaseProduct/{{index}}"><i class="fa-solid fa-square-minus"></i></a>
+                        {{/if}}
 
-                {{val.quantity}}
-                <a href="/users/increaseProduct/{{index}}"><i class="fa-solid fa-square-plus"></i></a>
-            </td>
-            <td>{{val.price}} - SDG</td>
-            <td><a href="/users/deleteProduct/{{index}}" class="dangers" data-tooltip="delete"><i class="fa-solid fa-trash"></i></a></td>
-        </tr>
-        {{/each}}
-        <tr class="thead-dark">
-            <th colspan="3" class="text-left"><b>Total Price</b></th>
-            <th class="">{{userCart.totalPrice}} - SDG</th>
-            <td><a href="/users/deleteAll" class="dangers btn-trash"><i class="fa-solid fa-trash"></i>delete all</a>
-            </td>
-        </tr>
+                        {{val.quantity}}
+                        <a href="/shoppingCart/increaseProduct/{{index}}"><i class="fa-solid fa-square-plus"></i></a>
+                    </td>
+                    <td>{{val.price}} SDG</td>
+                    <td><a href="/shoppingCart/deleteProduct/{{index}}" class="dangers" data-tooltip="delete"><i
+                                class="fa-solid fa-trash"></i></a></td>
+                </tr>
+                {{/each}}
+                {{/each}}
+                <tr class="table-success">
+                    <td colspan="5">
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">
+                            <i class="fa-solid fa-trash"></i> Delete All
+                        </button>
+                    </td>
 
-    </table>
-    <div class="grid">
-        <a href="/users/checkout" class="btn-checkout"><button id="cash"> Checkout</button></a>
-        <a href="/users/onlineCheckout" class="btn-checkout"><button class="contrast"> Credit Card</button></a>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="row mb-3 justify-content-start ">
+        <div class="col-sm-3">
+            <h4>Total: {{#each userCart}}
+                {{this.totalPrice}}
+                {{/each}}</h4>
+        </div>
+        <div class="col-sm-3">
+            <a href="/shoppingCart/checkout" class="btn btn-success btn-sm">Checkout</a>
+
+        </div>
     </div>
 </div>
+<!-- Button trigger modal -->
 
+
+<!-- Modal -->
+<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Attention</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete all items?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                <a href="/shoppingCart/deleteAll" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> delete
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {{else}}
 {{#if hasCart}}
 <div class="container text-center">
@@ -51,5 +91,4 @@
     <h4 style="margin-top: 60px;"><i class="fa-solid fa-cart-shopping"></i> Empty Cart!</h4>
 </div>
 {{/if}}
-
 {{/if}}

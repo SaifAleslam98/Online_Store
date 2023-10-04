@@ -1,41 +1,58 @@
-<div class="container">
-    {{#if messages}}
+{{#if messages}}
 
-    {{#each messages}}
-    <div class="bar error">
-        {{this}}
-    </div>
-    {{/each}}
+{{#each messages}}
+<div class="bar error">
+    {{this}}
+</div>
+{{/each}}
 
-    {{/if}}
-    <form action="" method="post">
-        <div class="grid">
-            <h4>{{UserName}}!</h4>
+{{/if}}
+
+
+<div class="container justify-content-center" style="padding-top: 3em;">
+    <div class="row mb-3 justify-content-center">
+        <div class="col-sm-4 ">
+            <h5>Welcome {{UserName}}!</h5>
+
+        </div>
+        <div class="col-sm-4">
             <h5>Your Total Price is : {{TotalPrice}} SDG</h5>
+
+        </div>
+    </div>
+    <form action="/shoppingCart/checkout" method="post">
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-4 ">
+                <label for="formGroupExampleInput" class="form-label">your name</label>
+                <input type="text" class="form-control form-control-sm" name="username" id="colFormLabelSm"
+                    placeholder="enter your name">
+
+            </div>
+            <div class="col-sm-4">
+                <label for="formGroupExampleInput" class="form-label">your phone</label>
+                <input type="text" class="form-control form-control-sm" name="phone" id="colFormLabelSm"
+                    placeholder="enter your phone">
+
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-8 ">
+                <label for="formGroupExampleInput" class="form-label">your Address</label>
+                <input type="text" class="form-control form-control-sm" name="address" id="colFormLabelSm"
+                    placeholder="enter your address">
+
+            </div>
+
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm-2">
+                <input type="hidden" name="_csrf" value="{{token}}">
+                <!-- Button -->
+                <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Submit Order</button>
+
+            </div>
         </div>
 
-        <div class="grid">
-            <label for="firstname">
-                User name
-                <input type="text" id="" name="username" placeholder="enter your name" >
-            </label>
-            <label for="Address">
-                Address
-                <input type="text" id="" name="address" placeholder="enter your address">
-            </label>
-            <label for="Phone">
-                Phone
-                <input type="text" id="" name="phone" placeholder="enter your phone" >
-            </label>
-        </div>
-
-
-
-
-
-        <input type="hidden" name="_csrf" value="{{token}}">
-        <!-- Button -->
-        <button type="submit" class="contrast">Submit Order</button>
 
     </form>
 </div>

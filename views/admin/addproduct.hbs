@@ -1,72 +1,49 @@
-<div class="container">
-    <h2>Add Product</h2>
-    <div class="grid">
-        <div>
-            <form action="addproduct" method="post">
+<div class="container" style="padding-top: 4em;">
+    
 
-
-                <h6>Please Fill This Fields To Add New Product</h6>
-                {{#if messages}}
-                {{#each messages}}
-                <div class="bar error">
-                    {{this}}
-                </div>
-                {{/each}}
-                {{else}}
-                {{#if messagesDone}}
-                <div class="bar success">
-                    {{messagesDone}}
-                </div>
-                {{/if}}
-                {{/if}}
-                <div class="">
-                    <label for="productName">
-                        Product Name
-                        <input type="text" id="" name="productName" placeholder="Product Name" />
-                    </label>
-                    <label for="productDetails">
-                        Product Details
-                        <input type="text" id="" name="productDetails" placeholder="Product Details">
-                    </label>
-                    <label for="productPrice">
-                        Product Price
-                        <input type="text" id="" name="productPrice" placeholder="Product Price">
-                    </label>
-                    <label for="productImage">
-                        Product Image
-                        <input type="file" name="imgpath" id="">
-                    </label>
-                    <button class="contrast ">Add Product</button>
-                </div>
-
-            </form>
-        </div>
-        <div>
-            <table>
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Produt Name</th>
-                        <th scope="col">Produt Details</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">img</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each products}}
-                    {{#each this}}
-                    <tr>
-                        <th scope="row">#</th>
-                        <td>{{this.productName}}</td>
-                        <td>{{this.productDetails}}</td>
-                        <td>{{this.productPrice}} SDG</td>
-                        <td><img src="/images/{{this.imgPath}}" class="imageTable"></td>
-                    </tr>
-                    {{/each}}
-                    {{/each}}
-                </tbody>
-            </table>
+    <div class="row text-center">
+        <div class="col-sm-12">
+            <h6>All Added Products</h6>
         </div>
     </div>
+    <div class="row mb-3">
+        <table class="table table-bordered text-center">
+            <thead class="table-primary">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Produt Name</th>
+                    <th scope="col">Produt Details</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">img</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                {{#each this as | val index|}}
+                <tr>
+                    <th scope="row">{{add @index}}</th>
+                    <td>{{this.productName}}</td>
+                    <td>{{this.productDetails}}</td>
+                    <td>{{this.productPrice}} SDG</td>
+                    <td><img src="{{this.imgPath}}" class="product-img"></td>
+                </tr>
+                {{/each}}
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
 </div>
+<script>
 
+
+
+    document.getElementById('imgFile').onchange = function () {
+        const reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function () {
+            document.getElementById('productImg').src = this.result;
+            $('#productImg').addClass('profile-img');
+            $('#productImg').removeClass('d-none')
+        }
+    }
+</script>

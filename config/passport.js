@@ -14,7 +14,7 @@ passport.deserializeUser((id, done) => {
             }
             user.cart = cart;
             return done(err, user);
-        }).lean();
+        });
         
     })
 });
@@ -47,20 +47,24 @@ passport.use('local-signup', new localStrategy({
 }, (req, useremail, userpass, done) => {
     User.findOne({ userMail: useremail }, (err, user) => {
         if (err) {
+            console.log(req.body.gender)
             return done(err);
         }
         if (user) {
             return done(null, false, req.flash('signupError', 'this email is used'));
         }
+        
         const newUser = new User({
             userName: req.body.firstname,
             userPhone: req.body.userphone,
             userMail: useremail,
+            userAddress: req.body.useraddress,
+            userGender: req.body.usergender,
+            isAdmin:false,
             userPassword: new User().hashPassword(userpass)
         })
         newUser.save((err, user)=>{
             if(err){
-                
                 return done(err);
             }
             return done(null, user);
